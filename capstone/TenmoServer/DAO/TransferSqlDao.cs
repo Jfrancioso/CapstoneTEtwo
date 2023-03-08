@@ -17,6 +17,34 @@ namespace TenmoServer.DAO
             connectionString = dbConnectionString;
         }
 
+        public IList<Transfer> GetAllTransfers(int accountId)
+        {
+            IList<Transfer> transfers = new List<Transfer>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM transfer WHERE account_from = @account_id OR account_to = @account_id;", conn);
+                    cmd.Parameters.AddWithValue("@account_id", accountId);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Transfer t = GetTransferFromReader(reader);
+                        transfers.Add(t);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return transfers;
+        }
         public Transfer TransferDetails(int transferId)
         {
             Transfer transfer = null;
@@ -26,7 +54,7 @@ namespace TenmoServer.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM transfer WHERE transfer_id = @transferId", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM transfer WHERE transfer_id = @transfer_id", conn);
                     cmd.Parameters.AddWithValue("@transfer_id", transferId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
