@@ -5,5 +5,6 @@ namespace TenmoServer.DAO
 {
     public interface ITransferDao
     {
+        Transfer TransferDetails(int transferId);
     }
 }
