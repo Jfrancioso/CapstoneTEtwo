@@ -11,13 +11,6 @@ namespace TenmoClient.Models
         public decimal Balance { get; set; }
 
         public Account() { }
-
-        public Account(int accountId, decimal balance, int userId)
-        {
-            AccountId = accountId;
-            Balance = balance;
-            UserId = userId;
-        }
      }
    }
 

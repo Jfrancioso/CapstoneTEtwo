@@ -73,13 +73,19 @@ namespace TenmoClient
 
             if (menuSelection == 1)
             {
-                Account account = tenmoApiService.GetBalance(tenmoApiService.UserId);
-                Console.WriteLine($"Your current balance:{account.Balance:C2}");
+                decimal Balance = tenmoApiService.GetBalance(tenmoApiService.UserId);
+                Console.WriteLine($"Your current balance:{Balance:C2}");
+                console.Pause();
             }
 
             if (menuSelection == 2)
             {
                 // View your past transfers
+
+                //int UserId = tenmoApiService.GetTransfer(tenmoApiService.UserId)
+                //decimal Balance = tenmoApiService.GetTransfer(tenmoApiService.UserId);
+                //Console.WriteLine($"Id of the user you are sending to:{UserId}");
+                //Console.WriteLine($"Enter amount to send:{Balance}");
             }
 
             if (menuSelection == 3)

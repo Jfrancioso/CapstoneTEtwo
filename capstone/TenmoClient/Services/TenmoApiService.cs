@@ -13,15 +13,24 @@ namespace TenmoClient.Services
 
         public TenmoApiService(string apiUrl) : base(apiUrl) { }
 
-        public Account GetBalance(int userId)
+        public decimal GetBalance(int userId)
         
         {
             RestRequest restRequest = new RestRequest($"account/{userId}");
-            IRestResponse<Account> response = client.Get<Account>(restRequest);
+            IRestResponse<decimal> response = client.Get<decimal>(restRequest);
 
                 return response.Data;
           
         }
+
+        //public decimal GetTransfer(int userId)
+        //{
+
+        //    //RestRequest restRequest = new RestRequest()
+        //    //IRestResponse<decimal> response = client.Get<decimal>(restRequest)
+
+        //    //    return response.Data;
+        //}
 
     }
 }
