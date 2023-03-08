@@ -52,7 +52,10 @@ namespace TenmoClient.Services
         }
 
         // Add application-specific UI methods here...
-
+        public void PrintBalance(decimal balance)
+        {
+            Console.WriteLine($"Your current balance is: ${balance}");
+        }
 
     }
 }

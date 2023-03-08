@@ -30,7 +30,7 @@ namespace TenmoServer.DAO
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return balance;
         }
