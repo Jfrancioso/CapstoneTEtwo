@@ -18,6 +18,7 @@ namespace TenmoServer.DAO
 
         public User TransferStatus()
         {
+            User returnUser = null;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
