@@ -70,9 +70,6 @@ namespace TenmoClient.Services
                 Console.WriteLine($"{transfer.TransferId}\t|\t{transfer.AccountFrom}\t|\t{transfer.AccountTo}\t|\t{transfer.Amount:C}");
             }
             Console.WriteLine("--------------------------------------------------------");
-
-            List<Account> accounts = new List<Account>();
-            Account account = new Account();
         }
 
         public void PrintTransferDetails(Transfer transferDetails)
@@ -90,14 +87,17 @@ namespace TenmoClient.Services
             Console.WriteLine("-------------------------------------------");
 
         }
-        public void PrintSendingBucks(IList<Transfer> transfers)
+        public void PrintSendingBucks(IList<ApiUser> users)
         {
             Console.Clear();
             Console.WriteLine("|-------------------USERS-------------------|");
             Console.WriteLine("|    ID | Username                          |");
             Console.WriteLine("|-------------------------------------------|");
-            List<Account> accounts = new List<Account>();
-            Account account = new Account();
+            foreach (ApiUser user in users)
+            {
+                Console.WriteLine($"|  {user.UserId} | {user.Username}");
+            }
+            Console.WriteLine("|-------------------------------------------|");
         }
         public void PrintRequestingBucks(IList<Transfer> transfers)
         {
