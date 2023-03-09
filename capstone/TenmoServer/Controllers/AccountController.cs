@@ -18,9 +18,9 @@ namespace TenmoServer.Controllers
         }
 
         [HttpGet("{userid}")]
-        public decimal GetBalance(int userid)
+        public decimal GetBalance(int accountId)
         {
-            return accountDao.GetBalance(userid);
+            return accountDao.GetBalance(accountId);
         }
     }
 }
