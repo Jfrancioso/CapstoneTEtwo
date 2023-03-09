@@ -38,7 +38,7 @@ namespace TenmoClient.Services
             RestRequest restRequest = new RestRequest($"transfer/account/{userId}");
             IRestResponse<List<Transfer>> restResponse = client.Get<List<Transfer>>(restRequest);
             
-            return transfers;
+            return restResponse.Data;
         }
 
     }

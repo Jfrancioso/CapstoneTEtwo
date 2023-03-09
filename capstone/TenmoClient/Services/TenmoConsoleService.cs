@@ -63,16 +63,16 @@ namespace TenmoClient.Services
             Console.Clear();
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine("Transfers");
-            Console.WriteLine("ID\tFrom/To\t\tAmount");
-            foreach (Transfer transfer in transfers) 
+            Console.WriteLine("ID\t|\tFrom\t|\tTo\t|\tAmount");
+            Console.WriteLine("-------------------------------------------");
+            foreach (Transfer transfer in transfers)
             {
-                Console.WriteLine($"{transfer.TransferId}\t{transfer.AccountFrom}\t{transfer.AccountTo}\t\t{transfer.Amount}");
+                Console.WriteLine($"{transfer.TransferId}\t|\t{transfer.AccountFrom}\t|\t{transfer.AccountTo}\t|\t{transfer.Amount:C}");
             }
             Console.WriteLine("-------------------------------------------");
 
             List<Account> accounts = new List<Account>();
-            Account account= new Account();
-            
+            Account account = new Account();
         }
 
         public void PrintTransferDetails(Transfer transferDetails)
