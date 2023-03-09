@@ -84,10 +84,8 @@ namespace TenmoClient
                 // View your past transfers
                 IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
                 console.PrintTransfers(transfers);
-
                 Console.WriteLine("Please enter transfer ID to view details (0 to cancel): ");               
                 Console.ReadLine();
-          
                 console.Pause();
             }
 
