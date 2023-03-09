@@ -94,9 +94,9 @@ namespace TenmoClient
             if (menuSelection == 3)
             {
                 // View your pending requests
-                IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
-                console.PrintTransferDetails(transfers);
-                console.Pause();
+                //IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
+                //console.PrintTransferDetails(transfers);
+                //console.Pause();
                 
             }
 
