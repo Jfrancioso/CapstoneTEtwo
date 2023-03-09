@@ -12,15 +12,20 @@ namespace TenmoServer.Controllers
     {
         private readonly IAccountDao accountDao;
 
-        public AccountController(IAccountDao _accountDao) 
+        public AccountController(IAccountDao _accountDao)
         {
             accountDao = _accountDao;
         }
 
         [HttpGet("{userid}")]
-        public decimal GetBalance(int accountId)
+        public decimal GetBalance(int userId)
         {
-            return accountDao.GetBalance(accountId);
+            return accountDao.GetBalance(userId);
+        }
+        [HttpGet("/accountNum/{accountId}")]
+        public decimal GetBalanceByAccount(int accountId)
+        {
+            return accountDao.GetBalanceByAccount(accountId);
         }
     }
 }

@@ -13,7 +13,35 @@ namespace TenmoServer.DAO
             connectionString = dbConnectionString;
         }
 
-        public decimal GetBalance(int accountId)
+        public decimal GetBalance(int userId)
+        {
+            decimal balance = 0M;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM account WHERE user_id = @user_id;", conn);
+                    cmd.Parameters.AddWithValue("@user_id", userId);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        Account account = GetAccountFromReader(reader);
+                        balance = account.Balance;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return balance;
+        }
+        public decimal GetBalanceByAccount(int accountId)
         {
             decimal balance = 0M;
 
@@ -24,7 +52,7 @@ namespace TenmoServer.DAO
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand("SELECT * FROM account WHERE account_id = @account_id;", conn);
-                    cmd.Parameters.AddWithValue("@account_id", accountId);
+                    cmd.Parameters.AddWithValue("@account_Id", accountId);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
