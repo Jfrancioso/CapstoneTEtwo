@@ -17,6 +17,32 @@ namespace TenmoServer.DAO
             connectionString = dbConnectionString;
         }
 
+        public Transfer SendTransfer( int fromUserId, int toUserId, decimal amount)
+        {
+            int newTransferId = 0;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("BEGIN TRANSACTION; UPDATE account SET balance -= @amount WHERE account_id = @fromAccount; UPDATE account SET balance += @amount WHERE account_id = @toAccount;" +
+                        "INSERT INTO transfer (transfer_type_id, transfer_status_id, account_from, account_to, amount) OUTPUT INSERTED.transfer_id VALUES (2, 2, @fromAccount, @toAccount, @amount); COMMIT;", conn);
+                   
+                    cmd.Parameters.AddWithValue("@fromAccount", fromUserId);
+                    cmd.Parameters.AddWithValue("@toAccount", toUserId);
+                    cmd.Parameters.AddWithValue("@amount", amount);
+
+                   newTransferId = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return TransferDetails(newTransferId);
+        }
         public IList<Transfer> GetAllTransfers(int accountId)
         {
             IList<Transfer> transfers = new List<Transfer>();

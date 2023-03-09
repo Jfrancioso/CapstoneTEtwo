@@ -7,5 +7,6 @@ namespace TenmoServer.DAO
     {
         Transfer TransferDetails(int transferId);
         IList<Transfer> GetAllTransfers(int accountId);
+        Transfer SendTransfer(int fromUserId, int toUserId, decimal amount);
     }
 }
