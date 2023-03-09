@@ -94,20 +94,40 @@ namespace TenmoClient
             if (menuSelection == 3)
             {
                 // View your pending requests
+                IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
+                console.PrintTransferDetails(transfers);
+                console.Pause();
+                
             }
 
             if (menuSelection == 4)
             {
                 // Send TE bucks
-                decimal UserId = tenmoApiService.GetTransfer(tenmoApiService.UserId);
-                decimal Balance = tenmoApiService.GetTransfer(tenmoApiService.UserId);
-                Console.WriteLine($"Id of the user you are sending to:{UserId}");
-                Console.WriteLine($"Enter amount to send:{Balance}");
+                //decimal UserId = tenmoApiService.GetTransfer(tenmoApiService.UserId);
+                //decimal Balance = tenmoApiService.GetTransfer(tenmoApiService.UserId);
+                IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
+                console.PrintSendingBucks(transfers);
+                decimal Balance = tenmoApiService.GetBalance(tenmoApiService.UserId);
+                Console.WriteLine($"Your current balance:{Balance:C2}");
+                Console.WriteLine("Id of the user you are sending to:");
+                //decimal ToUserId = decimal.Parse(Console.ReadLine());
+                Console.WriteLine("Enter amount to send:");
+                //decimal Amount = decimal.Parse(Console.ReadLine());
+                console.Pause();
             }
 
             if (menuSelection == 5)
             {
                 // Request TE bucks
+                IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
+                console.PrintRequestingBucks(transfers);
+                decimal Balance = tenmoApiService.GetBalance(tenmoApiService.UserId);
+                Console.WriteLine($"Your current balance:{Balance:C2}");
+                Console.WriteLine("Id of the user you are requesting from[0]:");
+                //decimal fromUserId = decimal.Parse(Console.ReadLine());
+                Console.WriteLine("Enter amount to request:");
+                //decimal Amount = decimal.Parse(Console.ReadLine());
+                console.Pause();
             }
 
             if (menuSelection == 6)
