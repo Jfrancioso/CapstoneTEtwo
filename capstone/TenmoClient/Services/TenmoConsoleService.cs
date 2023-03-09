@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TenmoClient.Models;
+using TenmoServer.Models;
 
 namespace TenmoClient.Services
 {
@@ -57,5 +58,41 @@ namespace TenmoClient.Services
             Console.WriteLine($"Your current balance is: ${balance}");
         }
 
+        public void PrintTransfers(IList<Transfer> transfers)
+        {
+            Console.Clear();
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("Transfers");
+            Console.WriteLine("ID\tFrom/To\t\tAmount");
+            Console.WriteLine("-------------------------------------------");
+
+            List<Account> accounts = new List<Account>();
+            Account account= new Account();
+            
+        }
+
+        //public void PrintTransferDetails(IList<TransferDetails> transferDetails)
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("-------------------------------------------");
+        //    Console.WriteLine("Transfer Details");
+        //    Console.WriteLine("-------------------------------------------");
+        //    Console.WriteLine("$Id|{}");
+        //    Console.WriteLine("$From|{}");
+        //    Console.WriteLine("$To|{}");
+        //    Console.WriteLine("$Type|{}");
+        //    Console.WriteLine("$Status|{}");
+        //    Console.WriteLine("$Amount|{}");
+        //    Console.WriteLine("-------------------------------------------");
+
+        //}
+
+        //public void PrintRequestingTeBucks(IList<RequestingTeBucks>requestingTeBucks)
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("-------------------------------------------");
+        //    Console.WriteLine("$Please choose an option:{}");
+        //    Console.WriteLine("-------------------USERS-------------------");
+        //}
     }
 }

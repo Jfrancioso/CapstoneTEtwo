@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using TenmoClient.Models;
- 
+using TenmoServer.Models;
 
 namespace TenmoClient.Services
 {
@@ -20,17 +20,26 @@ namespace TenmoClient.Services
             IRestResponse<decimal> response = client.Get<decimal>(restRequest);
 
                 return response.Data;
-          
+
         }
 
-        //public decimal GetTransfer(int userId)
-        //{
+        public decimal GetTransfer(int userId)
+        {
 
-        //    //RestRequest restRequest = new RestRequest()
-        //    //IRestResponse<decimal> response = client.Get<decimal>(restRequest)
+            RestRequest restRequest = new RestRequest();
+            IRestResponse<decimal> response = client.Get<decimal>(restRequest);
 
-        //    //    return response.Data;
-        //}
+            return response.Data;
+        }
+
+        public List<Transfer> GetAllTransfers(int userId)
+        {
+            List<Transfer> transfers = new List<Transfer>();
+            RestRequest restRequest = new RestRequest($"transfer/account/{userId}");
+            IRestResponse<List<Transfer>> restResponse = client.Get<List<Transfer>>(restRequest);
+            
+            return transfers;
+        }
 
     }
 }
