@@ -84,19 +84,17 @@ namespace TenmoClient
                 // View your past transfers
                 IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
                 console.PrintTransfers(transfers);
-
                 Console.WriteLine("Please enter transfer ID to view details (0 to cancel): ");               
                 Console.ReadLine();
-          
                 console.Pause();
             }
 
             if (menuSelection == 3)
             {
-                // View your pending requests
-                IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
-                console.PrintTransferDetails(transfers);
-                console.Pause();
+                //// View your pending requests
+                ////Transfer transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
+                //console.PrintTransferDetails(transfers);
+                //console.Pause();
                 
             }
 
