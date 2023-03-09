@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TenmoClient.Models;
 using TenmoClient.Services;
+using TenmoServer.Models;
 
 namespace TenmoClient
 {
@@ -73,13 +74,17 @@ namespace TenmoClient
 
             if (menuSelection == 1)
             {
-                Account account = tenmoApiService.GetBalance(tenmoApiService.UserId);
-                Console.WriteLine($"Your current balance:{account.Balance:C2}");
+                decimal Balance = tenmoApiService.GetBalance(tenmoApiService.UserId);
+                Console.WriteLine($"Your current balance:{Balance:C2}");
+                console.Pause();
             }
 
             if (menuSelection == 2)
             {
                 // View your past transfers
+                IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
+                console.PrintTransfers(transfers);
+                console.Pause();
             }
 
             if (menuSelection == 3)
@@ -90,6 +95,10 @@ namespace TenmoClient
             if (menuSelection == 4)
             {
                 // Send TE bucks
+                decimal UserId = tenmoApiService.GetTransfer(tenmoApiService.UserId);
+                decimal Balance = tenmoApiService.GetTransfer(tenmoApiService.UserId);
+                Console.WriteLine($"Id of the user you are sending to:{UserId}");
+                Console.WriteLine($"Enter amount to send:{Balance}");
             }
 
             if (menuSelection == 5)
