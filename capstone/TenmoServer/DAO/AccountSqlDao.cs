@@ -13,7 +13,7 @@ namespace TenmoServer.DAO
             connectionString = dbConnectionString;
         }
 
-        public decimal GetBalance(int userId)
+        public decimal GetBalance(int accountId)
         {
             decimal balance = 0M;
 
@@ -23,8 +23,8 @@ namespace TenmoServer.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM account WHERE user_id = @user_id;", conn);
-                    cmd.Parameters.AddWithValue("@user_id", userId);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM account WHERE account_id = @account_id;", conn);
+                    cmd.Parameters.AddWithValue("@account_id", accountId);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 

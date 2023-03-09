@@ -9,39 +9,48 @@ using TenmoServer.Security.Models;
 
 namespace TenmoServer.DAO
 {
-    public class TransferSqlDao : ITransferDao 
+    public class TransferSqlDao : ITransferDao
     {
+        private static IAccountDao accountDao;
         private readonly string connectionString;
-        public TransferSqlDao(string dbConnectionString)
+        public TransferSqlDao(string dbConnectionString, IAccountDao _accountDao)
         {
             connectionString = dbConnectionString;
+            accountDao = _accountDao;
         }
 
-        public Transfer SendTransfer( int fromUserId, int toUserId, decimal amount)
+        public Transfer SendTransfer(int account_from, int account_to, decimal amount)
         {
             int newTransferId = 0;
-
-            try
+            if (accountDao.GetBalance(account_from) > amount && account_from != account_to)
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                try
                 {
-                    conn.Open();
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("BEGIN TRANSACTION; UPDATE account SET balance -= @amount WHERE account_id = @fromAccount; UPDATE account SET balance += @amount WHERE account_id = @toAccount;" +
-                        "INSERT INTO transfer (transfer_type_id, transfer_status_id, account_from, account_to, amount) OUTPUT INSERTED.transfer_id VALUES (2, 2, @fromAccount, @toAccount, @amount); COMMIT;", conn);
-                   
-                    cmd.Parameters.AddWithValue("@fromAccount", fromUserId);
-                    cmd.Parameters.AddWithValue("@toAccount", toUserId);
-                    cmd.Parameters.AddWithValue("@amount", amount);
+                        SqlCommand cmd = new SqlCommand("BEGIN TRANSACTION; UPDATE account SET balance -= @amount WHERE account_id = @fromAccount; UPDATE account SET balance += @amount WHERE account_id = @toAccount;" +
+                            "INSERT INTO transfer (transfer_type_id, transfer_status_id, account_from, account_to, amount) OUTPUT INSERTED.transfer_id VALUES (2, 2, @fromAccount, @toAccount, @amount); COMMIT;", conn);
 
-                   newTransferId = Convert.ToInt32(cmd.ExecuteScalar());
+                        cmd.Parameters.AddWithValue("@fromAccount", account_from);
+                        cmd.Parameters.AddWithValue("@toAccount", account_to);
+                        cmd.Parameters.AddWithValue("@amount", amount);
+
+                        newTransferId = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                return TransferDetails(newTransferId);
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine(ex.Message);
-            }
-            return TransferDetails(newTransferId);
+                Console.WriteLine($"Unable to complete transfer, please try again");
+                return new Transfer(); //might be a lil weird, just don't want to break the program when we can't transfer.
+            } //were going to throw exception, but would probably break program.
         }
         public IList<Transfer> GetAllTransfers(int accountId)
         {
