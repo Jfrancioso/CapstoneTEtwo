@@ -22,7 +22,7 @@ namespace TenmoServer.DAO
         public Transfer SendTransfer(int account_from, int account_to, decimal amount)
         {
             int newTransferId = 0;
-            if (accountDao.GetBalance(account_from) > amount && account_from != account_to)
+            if (accountDao.GetBalanceByAccount(account_from) > amount && account_from != account_to && amount > 0)
             {
                 try
                 {
