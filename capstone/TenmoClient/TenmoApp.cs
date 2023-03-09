@@ -101,6 +101,9 @@ namespace TenmoClient
             if (menuSelection == 4)
             {
                 // Send TE bucks
+
+
+
                 //decimal UserId = tenmoApiService.GetTransfer(tenmoApiService.UserId);
                 //decimal Balance = tenmoApiService.GetTransfer(tenmoApiService.UserId);
                 IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);

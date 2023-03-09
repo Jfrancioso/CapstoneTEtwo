@@ -61,15 +61,15 @@ namespace TenmoClient.Services
         public void PrintTransfers(IList<Transfer> transfers)
         {
             Console.Clear();
-            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("--------------------------------------------------------");
             Console.WriteLine("Transfers");
             Console.WriteLine("ID\t|\tFrom\t|\tTo\t|\tAmount");
-            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("--------------------------------------------------------");
             foreach (Transfer transfer in transfers)
             {
                 Console.WriteLine($"{transfer.TransferId}\t|\t{transfer.AccountFrom}\t|\t{transfer.AccountTo}\t|\t{transfer.Amount:C}");
             }
-            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("--------------------------------------------------------");
 
             List<Account> accounts = new List<Account>();
             Account account = new Account();
@@ -93,11 +93,9 @@ namespace TenmoClient.Services
         public void PrintSendingBucks(IList<Transfer> transfers)
         {
             Console.Clear();
-            Console.WriteLine("-------------------------------------------");
-            Console.WriteLine("$Please choose an option:{}");
-            Console.WriteLine("-------------------USERS-------------------");
-            Console.WriteLine("ID\t|\tUsername\t");
-            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("|-------------------USERS-------------------|");
+            Console.WriteLine("|    ID | Username                          |");
+            Console.WriteLine("|-------------------------------------------|");
             List<Account> accounts = new List<Account>();
             Account account = new Account();
         }
