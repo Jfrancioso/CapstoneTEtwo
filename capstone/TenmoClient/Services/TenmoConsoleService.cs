@@ -71,28 +71,42 @@ namespace TenmoClient.Services
             
         }
 
-        //public void PrintTransferDetails(IList<TransferDetails> transferDetails)
-        //{
-        //    Console.Clear();
-        //    Console.WriteLine("-------------------------------------------");
-        //    Console.WriteLine("Transfer Details");
-        //    Console.WriteLine("-------------------------------------------");
-        //    Console.WriteLine("$Id|{}");
-        //    Console.WriteLine("$From|{}");
-        //    Console.WriteLine("$To|{}");
-        //    Console.WriteLine("$Type|{}");
-        //    Console.WriteLine("$Status|{}");
-        //    Console.WriteLine("$Amount|{}");
-        //    Console.WriteLine("-------------------------------------------");
+        public void PrintTransferDetails(IList<Transfer> transfers)
+        {
+            Console.Clear();
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("Transfer Details");
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("$Id\t|{}");
+            Console.WriteLine("$From\t|{}");
+            Console.WriteLine("$To\t|{}");
+            Console.WriteLine("$Type\t|{}");
+            Console.WriteLine("$Status\t|{}");
+            Console.WriteLine("$Amount\t|{}");
+            Console.WriteLine("-------------------------------------------");
 
-        //}
-
-        //public void PrintRequestingTeBucks(IList<RequestingTeBucks>requestingTeBucks)
-        //{
-        //    Console.Clear();
-        //    Console.WriteLine("-------------------------------------------");
-        //    Console.WriteLine("$Please choose an option:{}");
-        //    Console.WriteLine("-------------------USERS-------------------");
-        //}
+        }
+        public void PrintSendingBucks(IList<Transfer> transfers)
+        {
+            Console.Clear();
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("$Please choose an option:{}");
+            Console.WriteLine("-------------------USERS-------------------");
+            Console.WriteLine("ID\t|\tUsername\t");
+            Console.WriteLine("-------------------------------------------");
+            List<Account> accounts = new List<Account>();
+            Account account = new Account();
+        }
+        public void PrintRequestingBucks(IList<Transfer> transfers)
+        {
+            Console.Clear();
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("$Please choose an option:{}");
+            Console.WriteLine("-------------------USERS-------------------");
+            Console.WriteLine("ID\t|\tUsername\t");
+            Console.WriteLine("-------------------------------------------");
+            List<Account> accounts = new List<Account>();
+            Account account = new Account();
+        }
     }
 }
