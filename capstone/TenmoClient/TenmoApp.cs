@@ -108,13 +108,27 @@ namespace TenmoClient
 
                 Console.Write("Id of the user you are sending to[0]: ");
                 string toUserIdString = Console.ReadLine();
-                decimal toUserId = Convert.ToDecimal(toUserIdString);
+                int toUserId = Convert.ToInt32(toUserIdString);
+                int toUserAccountId = tenmoApiService.GetAccount(toUserId).AccountId;
+                int fromUserAccountId = tenmoApiService.GetAccount(tenmoApiService.UserId).AccountId;
 
                 Console.Write("Enter amount to send: ");
                 string transferAmountString = Console.ReadLine();
                 decimal transferAmount = Convert.ToDecimal(transferAmountString);
 
-                // Need to create a Transfer object, probably with a new dao and controller method
+                Transfer transfer = new Transfer(2, 2, fromUserAccountId, toUserAccountId, transferAmount);
+                Transfer successfulTransfer = tenmoApiService.SendTransfer(transfer);
+                if (successfulTransfer.TransferId != 0)
+                {
+                    Console.WriteLine("Transfer was successful!");
+                }
+                else
+                {
+                    Console.WriteLine("Transfer was unsuccessful.");
+                }
+
+                decimal balance = tenmoApiService.GetBalance(tenmoApiService.UserId);
+                Console.WriteLine($"Your remaining balance is: {balance:C2}");
 
                 console.Pause();
             }
