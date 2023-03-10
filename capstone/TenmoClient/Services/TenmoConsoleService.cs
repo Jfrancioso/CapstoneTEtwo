@@ -7,6 +7,10 @@ namespace TenmoClient.Services
 {
     public class TenmoConsoleService : ConsoleService
     {
+
+        public TenmoApiService tenmoApiService = new TenmoApiService(apiUrl);
+        private static readonly string apiUrl = "https://localhost:44315/";
+
         /************************************************************
             Print methods
         ************************************************************/
@@ -58,8 +62,9 @@ namespace TenmoClient.Services
             Console.WriteLine($"Your current balance is: ${balance}");
         }
 
-        public void PrintTransfers(IList<Transfer> transfers)
+        public void PrintTransfers(IList<Transfer> transfers, Account account, string loginUser)
         {
+            string otherUsername = "";
             Console.Clear();
             Console.WriteLine("--------------------------------------------------------");
             Console.WriteLine("Transfers");
@@ -67,7 +72,15 @@ namespace TenmoClient.Services
             Console.WriteLine("--------------------------------------------------------");
             foreach (Transfer transfer in transfers)
             {
-                Console.WriteLine($"{transfer.TransferId}\t|\t{transfer.AccountFrom}\t|\t{transfer.AccountTo}\t|\t{transfer.Amount:C}");
+                otherUsername = tenmoApiService.GetUsernameByTransfer(transfer.TransferId, account.AccountId);
+                if (account.AccountId == transfer.AccountFrom)
+                {
+                    Console.WriteLine($"{transfer.TransferId}\t|\t{loginUser}\t|\t{otherUsername}\t|\t{transfer.Amount:C}");
+                }
+                else
+                {
+                    Console.WriteLine($"{transfer.TransferId}\t|\t{otherUsername}\t|\t{loginUser}\t|\t{transfer.Amount:C}");
+                }
             }
             Console.WriteLine("--------------------------------------------------------");
         }
