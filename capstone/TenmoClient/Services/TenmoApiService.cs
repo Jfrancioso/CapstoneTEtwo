@@ -23,11 +23,11 @@ namespace TenmoClient.Services
 
         }
 
-        public decimal GetTransfer(int userId)
+        public Transfer GetTransfer(int transferId)
         {
 
-            RestRequest restRequest = new RestRequest();
-            IRestResponse<decimal> response = client.Get<decimal>(restRequest);
+            RestRequest restRequest = new RestRequest($"transfer/{transferId}");
+            IRestResponse<Transfer> response = client.Get<Transfer>(restRequest);
 
             return response.Data;
         }
