@@ -72,15 +72,23 @@ namespace TenmoClient.Services
             Console.WriteLine("--------------------------------------------------------");
         }
 
-        public void PrintTransferDetails(Transfer transferDetails)
+        public void PrintTransferDetails(Transfer transferDetails, string otherUsername, Account account, string loginUser)
         {
             Console.Clear();
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine("Transfer Details");
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine($"Id\t|{transferDetails.TransferId}");
-            Console.WriteLine($"From\t|{transferDetails.AccountFrom}");
-            Console.WriteLine($"To\t|{transferDetails.AccountTo}");
+            if (account.AccountId == transferDetails.AccountFrom)
+            {
+                Console.WriteLine($"From\t|{loginUser}");
+                Console.WriteLine($"To\t|{otherUsername}");
+            }
+            else
+            {
+                Console.WriteLine($"From\t|{otherUsername}");
+                Console.WriteLine($"To\t|{loginUser}");
+            }
             Console.WriteLine($"Type\t|{transferDetails.TransferTypeId}");
             Console.WriteLine($"Status\t|{transferDetails.TransferStatusId}");
             Console.WriteLine($"Amount\t|{transferDetails.Amount:C2}");

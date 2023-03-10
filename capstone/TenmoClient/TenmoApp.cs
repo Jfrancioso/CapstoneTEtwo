@@ -86,8 +86,13 @@ namespace TenmoClient
                 console.PrintTransfers(transfers);
                 Console.WriteLine("Please enter transfer ID to view details (0 to cancel): "); 
                 int transferId = Convert.ToInt32(Console.ReadLine());
+
                 Transfer transfer = tenmoApiService.GetTransfer(transferId);
-                console.PrintTransferDetails(transfer);
+                Account loginAccount = tenmoApiService.GetAccount(tenmoApiService.UserId);
+                string otherUserUsername = tenmoApiService.GetUsernameByTransfer(transferId, loginAccount.AccountId);
+                string loginUsername = tenmoApiService.Username;
+
+                console.PrintTransferDetails(transfer, otherUserUsername, loginAccount, loginUsername);
                 console.Pause();
             }
 
