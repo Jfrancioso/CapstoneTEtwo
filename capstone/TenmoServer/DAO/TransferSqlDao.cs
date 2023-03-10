@@ -89,8 +89,11 @@ namespace TenmoServer.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM transfer WHERE transfer_id = @transfer_id", conn);
-                    cmd.Parameters.AddWithValue("@transfer_id", transferId);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM tenmo_user " +
+                        "JOIN account ON account.user_id = tenmo_user.user_id " +
+                        "FULL JOIN transfer ON account.account_id = transfer.account_from" +
+                        "WHERE transfer_id = @transferId", conn);
+                    cmd.Parameters.AddWithValue("@transferId", transferId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.Read())

@@ -78,12 +78,12 @@ namespace TenmoClient.Services
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine("Transfer Details");
             Console.WriteLine("-------------------------------------------");
-            Console.WriteLine("$Id\t|{}");
-            Console.WriteLine("$From\t|{}");
-            Console.WriteLine("$To\t|{}");
-            Console.WriteLine("$Type\t|{}");
-            Console.WriteLine("$Status\t|{}");
-            Console.WriteLine("$Amount\t|{}");
+            Console.WriteLine($"Id\t|{transferDetails.TransferId}");
+            Console.WriteLine($"From\t|{transferDetails.AccountFrom}");
+            Console.WriteLine($"To\t|{transferDetails.AccountTo}");
+            Console.WriteLine($"Type\t|{transferDetails.TransferTypeId}");
+            Console.WriteLine($"Status\t|{transferDetails.TransferStatusId}");
+            Console.WriteLine($"Amount\t|{transferDetails.Amount:C2}");
             Console.WriteLine("-------------------------------------------");
 
         }
