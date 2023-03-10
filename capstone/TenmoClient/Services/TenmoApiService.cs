@@ -41,5 +41,32 @@ namespace TenmoClient.Services
             return restResponse.Data;
         }
 
+        public List<ApiUser> GetUsers()
+        {
+            RestRequest request = new RestRequest("user");
+            IRestResponse<List<ApiUser>> response = client.Get<List<ApiUser>>(request);
+
+            return response.Data;
+        }
+
+        public Transfer SendTransfer (Transfer transfer)
+        {
+            RestRequest request = new RestRequest("transfer");
+            request.AddJsonBody(transfer);
+
+            IRestResponse<Transfer> response = client.Post<Transfer>(request);
+
+            return response.Data;
+        }
+
+        public Account GetAccount(int userId)
+        {
+            RestRequest request = new RestRequest($"user/{userId}");
+
+            IRestResponse<Account> response = client.Get<Account>(request);
+
+            return response.Data;
+        }
+
     }
 }

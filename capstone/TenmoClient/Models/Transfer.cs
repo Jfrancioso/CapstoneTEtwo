@@ -19,5 +19,13 @@
             AccountTo = accountTo;
             Amount = amount;
         }
+        public Transfer(int transferTypeId, int transferStatusId, int accountFrom, int accountTo, decimal ammount)
+        {
+            TransferTypeId = transferTypeId;
+            TransferStatusId = transferStatusId;
+            AccountFrom = accountFrom;
+            AccountTo = accountTo;
+            Amount = ammount;
+        }
     }
 }
