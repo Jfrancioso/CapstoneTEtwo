@@ -80,17 +80,19 @@ namespace TenmoClient
             }
 
             if (menuSelection == 2)
-            {
+            { 
+                Account loginAccount = tenmoApiService.GetAccount(tenmoApiService.UserId);
+                string loginUsername = tenmoApiService.Username;
                 // View your past transfers
                 IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
-                console.PrintTransfers(transfers);
+                console.PrintTransfers(transfers, loginAccount, loginUsername);
                 Console.WriteLine("Please enter transfer ID to view details (0 to cancel): "); 
                 int transferId = Convert.ToInt32(Console.ReadLine());
 
                 Transfer transfer = tenmoApiService.GetTransfer(transferId);
-                Account loginAccount = tenmoApiService.GetAccount(tenmoApiService.UserId);
+               
                 string otherUserUsername = tenmoApiService.GetUsernameByTransfer(transferId, loginAccount.AccountId);
-                string loginUsername = tenmoApiService.Username;
+               
 
                 console.PrintTransferDetails(transfer, otherUserUsername, loginAccount, loginUsername);
                 console.Pause();
