@@ -67,6 +67,14 @@ namespace TenmoClient.Services
 
             return response.Data;
         }
+        public string GetUsernameByTransfer(int transferId, int accountId)
+        {
+
+            RestRequest request = new RestRequest($"user/transfer/{transferId}/{accountId}");
+            IRestResponse<string> response = client.Get<string>(request);
+
+            return response.Data;
+        }
 
     }
 }
