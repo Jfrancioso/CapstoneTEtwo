@@ -45,6 +45,55 @@ namespace TenmoServer.DAO
             return returnUser;
         }
 
+        public string GetUsernameByTransfer(Transfer transfer, int accountId)
+        {
+            string username = "";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    if (transfer.AccountFrom == accountId)
+                    {
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand("SELECT username FROM tenmo_user " +
+                            "FULL JOIN account ON account.user_id = tenmo_user.user_id " +
+                            "FULL JOIN transfer ON account.account_id = transfer.account_to " +
+                            "WHERE account_id != @accountId AND transfer_id = @transferId;", conn);
+                        cmd.Parameters.AddWithValue("@accountId", accountId);
+                        cmd.Parameters.AddWithValue("@transferId", transfer.TransferId);
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        if (reader.Read())
+                        {
+                            username =  Convert.ToString(reader["username"]);
+                        }
+                    } else
+                    {
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand("SELECT username FROM tenmo_user " +
+                            "FULL JOIN account ON account.user_id = tenmo_user.user_id " +
+                            "FULL JOIN transfer ON account.account_id = transfer.account_from " +
+                            "WHERE account_id != @accountId AND transfer_id = @transferId;", conn);
+                        cmd.Parameters.AddWithValue("@accountId", accountId);
+                        cmd.Parameters.AddWithValue("@transferId", transfer.TransferId);
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        if (reader.Read())
+                        {
+                            username = Convert.ToString(reader["username"]);
+                        }
+                    }
+                }
+
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            return username;
+        }
+
         public List<User> GetUsers()
         {
             List<User> returnUsers = new List<User>();
