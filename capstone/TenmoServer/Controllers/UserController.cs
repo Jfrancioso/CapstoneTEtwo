@@ -15,10 +15,13 @@ namespace TenmoServer.Controllers
     {
         private readonly IUserDao userDao;
         private readonly IAccountDao accountDao;
-        public UserController(IUserDao _userDao, IAccountDao _accountDao) 
+        private readonly ITransferDao transferDao;
+
+        public UserController(IUserDao _userDao, IAccountDao _accountDao, ITransferDao _transferDao) 
         {
             userDao = _userDao;
             accountDao = _accountDao;
+            transferDao = _transferDao;
         }
 
         [HttpGet]
@@ -31,6 +34,12 @@ namespace TenmoServer.Controllers
         public Account GetAccountByUserId(int userId)
         {
             return accountDao.GetAccount(userId);
+        }
+
+        [HttpGet("transfer/{transferId}/{accountId}")]
+        public string GetUsernameByTransfer(int transferId, int accountId)
+        {
+            return userDao.GetUsernameByTransfer(transferDao.TransferDetails(transferId), accountId);
         }
     }
 }
