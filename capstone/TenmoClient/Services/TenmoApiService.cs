@@ -67,11 +67,11 @@ namespace TenmoClient.Services
 
             return response.Data;
         }
-        public Transfer GetUsernameByTransfer(int transferId, int accountId)
+        public string GetUsernameByTransfer(int transferId, int accountId)
         {
 
             RestRequest request = new RestRequest($"user/transfer/{transferId}/{accountId}");
-            IRestResponse<Transfer> response = client.Get<Transfer>(request);
+            IRestResponse<string> response = client.Get<string>(request);
 
             return response.Data;
         }
