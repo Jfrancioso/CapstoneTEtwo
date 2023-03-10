@@ -102,8 +102,28 @@ namespace TenmoClient.Services
                 Console.WriteLine($"From\t|{otherUsername}");
                 Console.WriteLine($"To\t|{loginUser}");
             }
-            Console.WriteLine($"Type\t|{transferDetails.TransferTypeId}");
-            Console.WriteLine($"Status\t|{transferDetails.TransferStatusId}");
+            int transferType = transferDetails.TransferTypeId;
+            if (transferType == 1)
+            {
+                Console.WriteLine("Type\t|Request");
+            } else if (transferType == 2)
+            {
+                Console.WriteLine("Type\t|Send");
+            }
+            int transferStatus = transferDetails.TransferStatusId;
+            if (transferStatus == 1)
+            {
+                Console.WriteLine("Status\t|Pending");
+            }
+            else if (transferStatus == 2)
+            {
+                Console.WriteLine("Status\t|Approved");
+            }
+            else if (transferStatus == 3)
+            {
+                Console.WriteLine("Status\t|Rejected");
+            }
+            //Console.WriteLine($"Status\t|{transferDetails.TransferStatusId}");
             Console.WriteLine($"Amount\t|{transferDetails.Amount:C2}");
             Console.WriteLine("-------------------------------------------");
 

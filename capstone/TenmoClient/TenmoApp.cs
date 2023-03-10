@@ -80,32 +80,55 @@ namespace TenmoClient
             }
 
             if (menuSelection == 2)
-            { 
+            {
                 Account loginAccount = tenmoApiService.GetAccount(tenmoApiService.UserId);
                 string loginUsername = tenmoApiService.Username;
                 // View your past transfers
+                printMenu:
                 IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
                 console.PrintTransfers(transfers, loginAccount, loginUsername);
-                Console.WriteLine("Please enter transfer ID to view details (0 to cancel): "); 
-                int transferId = Convert.ToInt32(Console.ReadLine());
+                string otherUserUsername = "";
+                Transfer transfer = new Transfer();
+                while (otherUserUsername == null || otherUserUsername == "") 
+                { 
 
-                Transfer transfer = tenmoApiService.GetTransfer(transferId);
-               
-                string otherUserUsername = tenmoApiService.GetUsernameByTransfer(transferId, loginAccount.AccountId);
-               
+                    Console.WriteLine("Please enter transfer ID to view details (0 to cancel): ");
+                    string transferId = Console.ReadLine();
+                    int parsedId;
+                    if (!Int32.TryParse(transferId, out parsedId)) //try to parse it into an int, if it does not, print Please try again.
+                    {
+                        Console.WriteLine("Please Try again");//will goto next because parsedId == 0
+                        console.Pause();
+                        goto printMenu;
+                    }
+                    if (parsedId == 0)
+                    {
+                        goto next;
+                    }
+                    transfer = tenmoApiService.GetTransfer(parsedId);
 
+                    otherUserUsername = tenmoApiService.GetUsernameByTransfer(parsedId, loginAccount.AccountId);
+                    if (otherUserUsername != null && otherUserUsername != "")
+                    {
+                        break;
+                    }
+
+                    Console.WriteLine("Please try again.");
+                }
                 console.PrintTransferDetails(transfer, otherUserUsername, loginAccount, loginUsername);
+                next:
                 console.Pause();
             }
 
-            //if (menuSelection == 3)
-            //{
-            //    // View your pending requests
-            //    IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
-            //    console.PrintTransferDetails(transfers);
-            //    console.Pause();
-                
-            //}
+            if (menuSelection == 3)
+            {
+                //    // View your pending requests
+                //    IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
+                //    console.PrintTransferDetails(transfers);
+                //    console.Pause();
+                Console.WriteLine("No.");
+                console.Pause();
+            }
 
             if (menuSelection == 4)
             {
@@ -145,14 +168,15 @@ namespace TenmoClient
             if (menuSelection == 5)
             {
                 // Request TE bucks
-                IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
-                console.PrintRequestingBucks(transfers);
-                decimal Balance = tenmoApiService.GetBalance(tenmoApiService.UserId);
-                Console.WriteLine($"Your current balance:{Balance:C2}");
-                Console.WriteLine("Id of the user you are requesting from[0]:");
+                //IList<Transfer> transfers = tenmoApiService.GetAllTransfers(tenmoApiService.UserId);
+                //console.PrintRequestingBucks(transfers);
+                //decimal Balance = tenmoApiService.GetBalance(tenmoApiService.UserId);
+                //Console.WriteLine($"Your current balance:{Balance:C2}");
+               // Console.WriteLine("Id of the user you are requesting from[0]:");
                 //decimal fromUserId = decimal.Parse(Console.ReadLine());
-                Console.WriteLine("Enter amount to request:");
+                // Console.WriteLine("Enter amount to request:");
                 //decimal Amount = decimal.Parse(Console.ReadLine());
+                Console.WriteLine("Also no.");
                 console.Pause();
             }
 
